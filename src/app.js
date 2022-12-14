@@ -22,12 +22,12 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-const controllerTipos = require('./controller/controllerTipos.js')
-const controllerMensagem = require('./controller/controllerMensagens.js')
-const controllerProdutos = require('./controller/controllerProdutos.js')
-const controllerTamanho = require('./controller/controllerTamanho.js')
-const controllerUsuario = require('./controller/controllerUsuario.js')
-const {MESSAGE_ERROR, MESSAGE_SUCCESS} = require('./modulo/config.js')
+const controllerTipos = require('../controller/controllerTipos.js')
+const controllerMensagem = require('../controller/controllerMensagens.js')
+const controllerProdutos = require('../controller/controllerProdutos.js')
+const controllerTamanho = require('../controller/controllerTamanho.js')
+const controllerUsuario = require('../controller/controllerUsuario.js')
+const {MESSAGE_ERROR, MESSAGE_SUCCESS} = require('../modulo/config.js')
 const { response } = require('express')
 
 app.use((request, response, next) => {
@@ -42,7 +42,7 @@ const jsonParser = bodyParser.json()
 
 const verifyJWT = async (request, response, next)=>{
 
-    const jwt = require('./middleware/jwt.js')
+    const jwt = require('../middleware/jwt.js')
 
     let token = request.headers['x-access-token']
 
@@ -58,7 +58,7 @@ const verifyJWT = async (request, response, next)=>{
 
 // ------------- GET ------------- //
 
-app.get('/v1/tipo/pizza', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/tipo/pizza', cors(), async (request, response, next) => {
  
     const dadosTipo = await controllerTipos.listarTiposPizza()
 
@@ -66,7 +66,7 @@ app.get('/v1/tipo/pizza', cors(), async (request, response, next) => {
     response.json(dadosTipo)
 })
 
-app.get('/v1/tipo/bebida', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/tipo/bebida', cors(), async (request, response, next) => {
  
     const dadosTipo = await controllerTipos.listarTiposBebidas()
 
@@ -74,7 +74,7 @@ app.get('/v1/tipo/bebida', cors(), async (request, response, next) => {
     response.json(dadosTipo)
 })
 
-app.get('/v1/mensagem', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/mensagem', cors(), async (request, response, next) => {
  
     const dadosMessage = await controllerMensagem.listarMenssagens()
 
@@ -82,7 +82,7 @@ app.get('/v1/mensagem', cors(), async (request, response, next) => {
     response.json(dadosMessage)
 })
 
-app.get('/v1/produtos/pizza', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/produtos/pizza', cors(), async (request, response, next) => {
  
     const dadosPizza = await controllerProdutos.listarPizzas()
 
@@ -90,7 +90,7 @@ app.get('/v1/produtos/pizza', cors(), async (request, response, next) => {
     response.json(dadosPizza)
 })
 
-app.get('/v1/produtos/bebida', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/produtos/bebida', cors(), async (request, response, next) => {
  
     const dadosBebida = await controllerProdutos.listarBebidas()
 
@@ -98,7 +98,7 @@ app.get('/v1/produtos/bebida', cors(), async (request, response, next) => {
     response.json(dadosBebida)
 })
 
-app.get('/v1/produtos/tamanho', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/produtos/tamanho', cors(), async (request, response, next) => {
  
     const dadosTamanho = await controllerTamanho.listarTamanhos()
 
@@ -106,7 +106,7 @@ app.get('/v1/produtos/tamanho', cors(), async (request, response, next) => {
     response.json(dadosTamanho)
 })
 
-app.get('/v1/usuario', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/usuario', cors(), async (request, response, next) => {
  
     const dadosUser = await controllerUsuario.listarUsuarios()
 
@@ -114,7 +114,7 @@ app.get('/v1/usuario', cors(), async (request, response, next) => {
     response.json(dadosUser)
 })
 
-app.get('/v1/produtos/favoritos', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/produtos/favoritos', cors(), async (request, response, next) => {
  
     const dadosFavoritos = await controllerProdutos.listarFavoritos()
 
@@ -122,7 +122,7 @@ app.get('/v1/produtos/favoritos', cors(), async (request, response, next) => {
     response.json(dadosFavoritos)
 })
 
-app.get('/v1/produtos/promocoes', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/produtos/promocoes', cors(), async (request, response, next) => {
  
     const dadosPromocoes = await controllerProdutos.listarPromocoes()
 
@@ -130,7 +130,7 @@ app.get('/v1/produtos/promocoes', cors(), async (request, response, next) => {
     response.json(dadosPromocoes)
 })
 
-app.post('/v1/user/login', cors(), jsonParser, async (request, response, next) => {
+app.post('/.netlify/functions/api/v1/user/login', cors(), jsonParser, async (request, response, next) => {
  
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -160,7 +160,7 @@ app.post('/v1/user/login', cors(), jsonParser, async (request, response, next) =
 
 })
 
-app.get('/v1/produtos/ativo/:tipo', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/v1/produtos/ativo/:tipo', cors(), async (request, response, next) => {
 
     const tipo = request.params.tipo
 
@@ -172,7 +172,7 @@ app.get('/v1/produtos/ativo/:tipo', cors(), async (request, response, next) => {
 
 // ------------- GET BY ID ------------- //
 
-app.get('/v1/usuario/:id',cors(), async function (request, response) {
+app.get('/.netlify/functions/api/v1/usuario/:id',cors(), async function (request, response) {
 
     let id = request.params.id
     let statusCode
@@ -198,7 +198,7 @@ app.get('/v1/usuario/:id',cors(), async function (request, response) {
 })
 
 
-app.get('/v1/produtos/pizza/:id',cors(), async function (request, response) {
+app.get('/.netlify/functions/api/v1/produtos/pizza/:id',cors(), async function (request, response) {
 
     let id = request.params.id
     let statusCode
@@ -223,7 +223,7 @@ app.get('/v1/produtos/pizza/:id',cors(), async function (request, response) {
     response.status(statusCode)
 })
 
-app.get('/v1/produtos/bebida/:id',cors(), async function (request, response) {
+app.get('/.netlify/functions/api/v1/produtos/bebida/:id',cors(), async function (request, response) {
 
     let id = request.params.id
     let statusCode
@@ -252,7 +252,7 @@ app.get('/v1/produtos/bebida/:id',cors(), async function (request, response) {
 
 // ------------- POST ------------- //
 
-app.post('/v1/produtos/pizza', cors(), jsonParser, async (request, response, next) => {
+app.post('/.netlify/functions/api/v1/produtos/pizza', cors(), jsonParser, async (request, response, next) => {
 
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -282,7 +282,7 @@ app.post('/v1/produtos/pizza', cors(), jsonParser, async (request, response, nex
     response.json(message)
 })
 
-app.post('/v1/produtos/bebida', cors(), jsonParser, async (request, response, next) => {
+app.post('/.netlify/functions/api/v1/produtos/bebida', cors(), jsonParser, async (request, response, next) => {
 
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -312,7 +312,7 @@ app.post('/v1/produtos/bebida', cors(), jsonParser, async (request, response, ne
     response.json(message)
 })
 
-app.post('/v1/mensagem', cors(), jsonParser, async (request, response, next) => {
+app.post('/.netlify/functions/api/v1/mensagem', cors(), jsonParser, async (request, response, next) => {
 
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -342,7 +342,7 @@ app.post('/v1/mensagem', cors(), jsonParser, async (request, response, next) => 
     response.json(message)
 })
 
-app.post('/v1/usuario', cors(), jsonParser, async (request, response, next) => {
+app.post('/.netlify/functions/api/v1/usuario', cors(), jsonParser, async (request, response, next) => {
 
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -372,7 +372,7 @@ app.post('/v1/usuario', cors(), jsonParser, async (request, response, next) => {
     response.json(message)
 })
 
-app.post('/v1/tipo/pizza', cors(), jsonParser, async (request, response, next) => {
+app.post('/.netlify/functions/api/v1/tipo/pizza', cors(), jsonParser, async (request, response, next) => {
 
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -402,7 +402,7 @@ app.post('/v1/tipo/pizza', cors(), jsonParser, async (request, response, next) =
     response.json(message)
 })
 
-app.post('/v1/tipo/bebida', cors(), jsonParser, async (request, response, next) => {
+app.post('/.netlify/functions/api/v1/tipo/bebida', cors(), jsonParser, async (request, response, next) => {
 
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -432,7 +432,7 @@ app.post('/v1/tipo/bebida', cors(), jsonParser, async (request, response, next) 
     response.json(message)
 })
 
-app.post('/v1/produto/tamanho/:id', cors(), jsonParser, async function(request, response){
+app.post('/.netlify/functions/api/v1/produto/tamanho/:id', cors(), jsonParser, async function(request, response){
 
     let headerContentType = request.headers['content-type']
     let statusCode
@@ -473,7 +473,7 @@ app.post('/v1/produto/tamanho/:id', cors(), jsonParser, async function(request, 
 
 // ------------- DELETE ------------- //
 
-app.delete('/v1/mensagem/:id', cors(), jsonParser, async function(request, response){
+app.delete('/.netlify/functions/api/v1/mensagem/:id', cors(), jsonParser, async function(request, response){
     let statusCode;
     let message;
 
@@ -484,7 +484,7 @@ app.delete('/v1/mensagem/:id', cors(), jsonParser, async function(request, respo
             if (id != '' && id != undefined)
             {
                 //import do arquivo da controller de aluno
-                const controllerMensagens = require('./controller/controllerMensagens.js')
+                const controllerMensagens = require('../controller/controllerMensagens.js')
                 
                 //chama a funcao de excluir aluno
                 const deletarMensagem = await controllerMensagens.excluirMensagem(id);
@@ -502,7 +502,7 @@ app.delete('/v1/mensagem/:id', cors(), jsonParser, async function(request, respo
 });
 
 
-app.delete('/v1/usuario/:id', cors(), jsonParser, async function(request, response){
+app.delete('/.netlify/functions/api/v1/usuario/:id', cors(), jsonParser, async function(request, response){
     let statusCode;
     let message;
 
@@ -513,7 +513,7 @@ app.delete('/v1/usuario/:id', cors(), jsonParser, async function(request, respon
             if (id != '' && id != undefined)
             {
                 //import do arquivo da controller de aluno
-                const controllerUsuario = require('./controller/controllerUsuario.js')
+                const controllerUsuario = require('../controller/controllerUsuario.js')
                 
                 //chama a funcao de excluir aluno
                 const deletarUser = await controllerUsuario.excluirUsuario(id);
@@ -530,7 +530,7 @@ app.delete('/v1/usuario/:id', cors(), jsonParser, async function(request, respon
     response.json(message)
 });
 
-app.delete('/v1/produto/tamanho/:id/:idTamanho', cors(), jsonParser, async function(request, response, next){
+app.delete('/.netlify/functions/api/v1/produto/tamanho/:id/:idTamanho', cors(), jsonParser, async function(request, response, next){
 
     let statusCode;
     let message;
@@ -554,7 +554,7 @@ app.delete('/v1/produto/tamanho/:id/:idTamanho', cors(), jsonParser, async funct
     response.json(message)
 })
 
-app.put('/v1/produtos/:id', cors(), jsonParser, async function(request, response){
+app.put('/.netlify/functions/api/v1/produtos/:id', cors(), jsonParser, async function(request, response){
     let statusCode;
     let message;
 
@@ -580,7 +580,7 @@ app.put('/v1/produtos/:id', cors(), jsonParser, async function(request, response
 
 // ------------- UPDATE ------------- //
 
-app.put('/v1/produtos/pizza/:id', cors(), jsonParser, async (request, response, next) => {
+app.put('/.netlify/functions/api/v1/produtos/pizza/:id', cors(), jsonParser, async (request, response, next) => {
 
     let statusCode
     let message
@@ -621,7 +621,7 @@ app.put('/v1/produtos/pizza/:id', cors(), jsonParser, async (request, response, 
     response.json(message)
 })
 
-app.put('/v1/produtos/bebida/:id', cors(), jsonParser, async (request, response, next) => {
+app.put('/.netlify/functions/api/v1/produtos/bebida/:id', cors(), jsonParser, async (request, response, next) => {
 
     let statusCode
     let message
@@ -662,7 +662,7 @@ app.put('/v1/produtos/bebida/:id', cors(), jsonParser, async (request, response,
     response.json(message)
 })
 
-app.put('/v1/usuario/:id', cors(), jsonParser, async (request, response, next) => {
+app.put('/.netlify/functions/api/v1/usuario/:id', cors(), jsonParser, async (request, response, next) => {
     let statusCode;
     let message;
     let headerContentType;
@@ -705,7 +705,7 @@ app.put('/v1/usuario/:id', cors(), jsonParser, async (request, response, next) =
     response.json(message)
 });
 
-app.put('/v1/produtos/favoritos/:id', cors(), jsonParser, async (request, response, next) => {
+app.put('/.netlify/functions/api/v1/produtos/favoritos/:id', cors(), jsonParser, async (request, response, next) => {
 
     let statusCode
     let message
@@ -729,6 +729,4 @@ app.put('/v1/produtos/favoritos/:id', cors(), jsonParser, async (request, respon
     response.json(message)
 })
 
-app.listen(8080, function() {
-    console.log('Waiting...')
-})
+module.exports = app;
